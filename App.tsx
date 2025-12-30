@@ -21,14 +21,22 @@ import { StoreProvider } from './context/StoreContext.tsx';
 
 const App: React.FC = () => {
   useEffect(() => {
-    // إخفاء شاشة التحميل بعد تحميل المكونات
-    const loader = document.getElementById('loading-screen');
-    if (loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 500);
-    }
+    const hideLoader = () => {
+      const loader = document.getElementById('loading-screen');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    };
+
+    // إخفاء فوري بعد تحميل المكونات
+    hideLoader();
+    
+    // فحص إضافي للتأكد
+    window.addEventListener('load', hideLoader);
+    return () => window.removeEventListener('load', hideLoader);
   }, []);
 
   return (

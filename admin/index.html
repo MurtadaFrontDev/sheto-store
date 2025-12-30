@@ -7,6 +7,9 @@
     <title>إدارة شيتو | Admin</title>
     <script>
         window.process = { env: { API_KEY: "" } };
+        window.onerror = function() {
+            document.body.style.backgroundColor = '#0a0a0a';
+        };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
