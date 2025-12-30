@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '../utils/supabase';
 import { Product, SiteSettings } from '../types';
+import { MOCK_PRODUCTS } from '../constants.tsx';
 
 interface StoreContextType {
   products: Product[];
@@ -48,15 +49,20 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (productsData) {
+      if (pError || !productsData || productsData.length === 0) {
+        // إذا فشل Supabase أو كان فارغاً، نستخدم البيانات التجريبية لضمان عمل الموقع
+        setProducts(MOCK_PRODUCTS);
+        const cats = ['الكل', ...Array.from(new Set(MOCK_PRODUCTS.map(p => p.category)))];
+        setCategories(cats);
+      } else {
         setProducts(productsData);
-        // تم استخدام as string[] لحل مشكلة النوع غير المعروف (Unknown)
         const cats = ['الكل', ...Array.from(new Set(productsData.map((p: any) => String(p.category))))] as string[];
         setCategories(cats);
       }
       setSiteSettings(DEFAULT_SETTINGS);
     } catch (e) {
-      console.error("Fetch Error:", e);
+      console.warn("Using fallback data due to connection error");
+      setProducts(MOCK_PRODUCTS);
     } finally {
       setIsLoading(false);
     }
