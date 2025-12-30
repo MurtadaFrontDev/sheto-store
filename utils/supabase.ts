@@ -1,7 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
 
-// ملاحظة: يجب وضع القيم الحقيقية من إعدادات مشروعك في Supabase (Project Settings > API)
-const supabaseUrl = "https://kvrkiydvccrjunyknwwv.supabase.co";
-const supabaseKey = "sb_publishable_JB-fez2zUEGT5NQsZyHmUg_Hi1m8QYB";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+// يرجى استبدال هذه القيم من لوحة تحكم Supabase الخاصة بك (Settings > API)
+// إذا بقيت كما هي، سيعمل الموقع لكنه لن يعرض أي منتجات أو يسجل دخول
+const supabaseUrl = 'https://YOUR_PROJECT_URL.supabase.co';
+const supabaseKey = 'YOUR_ANON_PUBLIC_KEY';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);

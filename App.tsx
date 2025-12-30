@@ -1,25 +1,36 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AIChat from './components/AIChat';
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-import Orders from './pages/Orders';
-import Profile from './pages/Profile';
-import Checkout from './pages/Checkout';
-import Receipt from './pages/Receipt';
-import { CartProvider } from './context/CartContext';
-import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
-import { StoreProvider } from './context/StoreContext';
+import Navbar from './components/Navbar.tsx';
+import Footer from './components/Footer.tsx';
+import AIChat from './components/AIChat.tsx';
+import Home from './pages/Home.tsx';
+import Products from './pages/Products.tsx';
+import ProductDetail from './pages/ProductDetail.tsx';
+import Cart from './pages/Cart.tsx';
+import Login from './pages/Login.tsx';
+import ForgotPassword from './pages/ForgotPassword.tsx';
+import Orders from './pages/Orders.tsx';
+import Profile from './pages/Profile.tsx';
+import Checkout from './pages/Checkout.tsx';
+import Receipt from './pages/Receipt.tsx';
+import { CartProvider } from './context/CartContext.tsx';
+import { AuthProvider } from './context/AuthContext.tsx';
+import { ThemeProvider } from './context/ThemeContext.tsx';
+import { StoreProvider } from './context/StoreContext.tsx';
 
 const App: React.FC = () => {
+  useEffect(() => {
+    // إخفاء شاشة التحميل بعد تحميل المكونات
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    }
+  }, []);
+
   return (
     <ThemeProvider>
       <AuthProvider>
