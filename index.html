@@ -7,6 +7,15 @@
     <title>متجر شيتو | Sheeto Store</title>
     
     <script>
+      // 1. إخفاء التحميل في حال حدوث خطأ كارثي في المتصفح
+      window.onerror = function() {
+        const loader = document.getElementById('loading-screen');
+        if (loader) loader.style.display = 'none';
+      };
+
+      // 2. تعريف البيئة لمنع خطأ process is not defined
+      window.process = { env: { API_KEY: "" } };
+      
       const isLocal = window.location.hostname === 'localhost' || 
                       window.location.hostname.includes('127.0.0.1') || 
                       window.location.hostname.includes('stackblitz') || 
@@ -62,7 +71,9 @@
         <p style="color: white; font-weight: bold; font-size: 14px; font-family: sans-serif;">جاري تجهيز السيت-أب...</p>
     </div>
     <div id="root"></div>
-    <script type="text/babel" data-type="module" src="./index.tsx"></script>
+    <script type="text/babel" data-type="module">
+        import './index.tsx';
+    </script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>

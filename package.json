@@ -1,3 +1,4 @@
+
 {
   "name": "sheeto-store",
   "version": "1.0.0",
@@ -15,11 +16,10 @@
   "author": "Sheeto",
   "license": "MIT",
   "dependencies": {
-    "@google/genai": "^1.34.0",
-    "@supabase/supabase-js": "^2.89.0",
-    "lucide-react": "^0.446.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "lucide-react": "^0.446.0",
+    "@google/genai": "^1.34.0"
   }
 }
