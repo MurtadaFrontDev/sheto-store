@@ -7,32 +7,15 @@
     <title>متجر شيتو | Sheeto Store</title>
     
     <script>
-      // 1. تعريف البيئة فوراً لمنع انهيار مكتبة Gemini
+      // تعريف البيئة فوراً لمنع انهيار المكتبات
       window.process = { env: { API_KEY: "" } };
 
-      // 2. معالج أخطاء لضمان إزالة شاشة التحميل في حال فشل أي شيء
-      window.onerror = function() {
-        console.log("Caught global error, removing loader...");
+      // إزالة شاشة التحميل في حال فشل أي شيء لكي لا يرى المستخدم صفحة سوداء
+      window.onerror = function(msg, url, line) {
+        console.error("Global Error:", msg, "at", url, ":", line);
         const loader = document.getElementById('loading-screen');
         if (loader) loader.style.display = 'none';
       };
-
-      // 3. مؤقت أمان: إذا لم يختفِ التحميل خلال 6 ثوانٍ، أخفه يدوياً
-      setTimeout(() => {
-        const loader = document.getElementById('loading-screen');
-        if (loader && loader.style.display !== 'none') {
-           loader.style.opacity = '0';
-           setTimeout(() => { loader.style.display = 'none'; }, 500);
-        }
-      }, 6000);
-      
-      const isLocal = window.location.hostname === 'localhost' || 
-                      window.location.hostname.includes('127.0.0.1') || 
-                      window.location.hostname.includes('stackblitz');
-      const isStore = window.location.search.includes('store');
-      if (isLocal && !isStore && !window.location.pathname.includes('admin')) {
-        window.location.href = 'admin/index.html';
-      }
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -76,12 +59,11 @@
 <body>
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p style="color: white; font-weight: bold; font-size: 14px;">جاري تشغيل السيت-أب...</p>
+        <p style="color: white; font-weight: bold; font-size: 14px;">جاري تشغيل المتجر...</p>
     </div>
     <div id="root"></div>
-    <script type="text/babel" data-type="module">
-        import './index.tsx';
-    </script>
+    <!-- تم تغيير طريقة الاستدعاء لضمان استقرار Babel -->
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>
